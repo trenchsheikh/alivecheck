@@ -393,7 +393,7 @@ const EMAILJS_SERVICE_ID = 'service_4j5wyqt';
 const EMAILJS_TEMPLATE_ID = 'template_xaf9bvs';
 const EMAILJS_USER_ID = '1CV2Ks2DEdwQdtK85';
 
-function sendCheckinEmail(toEmail, status, secretWord) {
+function sendCheckinEmail(toEmail: string, status: 'safe' | 'not_safe', secretWord: string) {
   emailjs.send(
     EMAILJS_SERVICE_ID,
     EMAILJS_TEMPLATE_ID,
