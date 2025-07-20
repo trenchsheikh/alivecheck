@@ -118,7 +118,7 @@ const HomePage: React.FC<{
     setSelectedContact(undefined);
   };
   return (
-    <div className="flex flex-1 min-h-0 flex-col items-center justify-center px-8">
+    <div className="flex flex-1 min-h-0 flex-col items-center justify-center px-4 py-2">
       <div className="flex flex-row gap-8 items-center justify-center">
         {/* Safe Button */}
         <div className="relative">
@@ -439,7 +439,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-100 via-white to-red-200 dark:from-black dark:via-gray-900 dark:to-green-900" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen h-screen flex flex-col bg-gradient-to-br from-green-100 via-white to-red-200 dark:from-black dark:via-gray-900 dark:to-green-900 overflow-hidden" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header */}
       <header className="relative bg-gradient-to-r from-green-600 via-black to-red-600 text-white py-6 px-6 text-center shadow-2xl">
         <h1 className="text-3xl font-bold mb-2">{translations[language].appName}</h1>
@@ -457,7 +457,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col overflow-y-auto">
         {renderCurrentPage()}
       </main>
 
