@@ -213,7 +213,7 @@ const History: React.FC<{ checkIns: CheckIn[]; lang: 'en' | 'ar'; contacts: Cont
         </div>
       ) : (
         <ul className="space-y-4">
-          {checkIns.slice().reverse().map((ci, idx) => {
+          {checkIns.slice().reverse().map((ci) => {
             const contact = ci.contactId !== undefined ? contacts.find(c => c.id === ci.contactId) : undefined;
             return (
               <li key={ci.timestamp} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
@@ -347,16 +347,14 @@ const SettingsPage: React.FC<{
 const StealthCalculator: React.FC<{ onReveal: () => void; lang: 'en' | 'ar' }> = ({ onReveal, lang }) => {
   const t = translations[lang];
   const [count, setCount] = useState(0);
-  const [tapCount, setTapCount] = useState(0);
+  const tapRef = React.useRef(0);
   
   const handleLogoClick = () => {
-    setTapCount(t => {
-      if (t + 1 >= 3) {
-        onReveal();
-        return 0;
-      }
-      return t + 1;
-    });
+    tapRef.current += 1;
+    if (tapRef.current >= 3) {
+      onReveal();
+      tapRef.current = 0;
+    }
   };
   
   return (
