@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Home, Clock, Settings, Calculator } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 // Types
 interface CheckIn {
@@ -283,9 +284,9 @@ const SettingsPage: React.FC<{
             value={form.method} 
             onChange={e => setForm(f => ({ ...f, method: e.target.value }))}
           >
-            <option>📧 Email</option>
-            <option>💬 Telegram</option>
-            <option>📱 SMS</option>
+            <option value="Email">📧 Email</option>
+            <option value="Telegram">�� Telegram</option>
+            <option value="SMS">📱 SMS</option>
           </select>
           <input 
             className="w-full p-4 rounded-2xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-green-100 focus:border-green-400 focus:outline-none transition-colors" 
@@ -387,6 +388,32 @@ const StealthCalculator: React.FC<{ onReveal: () => void; lang: 'en' | 'ar' }> =
   );
 };
 
+// EmailJS config
+const EMAILJS_SERVICE_ID = 'service_4j5wyqt';
+const EMAILJS_TEMPLATE_ID = 'template_xaf9bvs';
+const EMAILJS_USER_ID = '1CV2Ks2DEdwQdtK85';
+
+function sendCheckinEmail(toEmail, status, secretWord) {
+  emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+    {
+      to_email: toEmail,
+      status: status === 'safe' ? 'I am SAFE' : 'I am NOT SAFE',
+      secret_word: secretWord,
+      time: new Date().toLocaleString(),
+    },
+    EMAILJS_USER_ID
+  ).then(
+    (result) => {
+      console.log('Email sent!', result.text);
+    },
+    (error) => {
+      console.error('Email failed:', error);
+    }
+  );
+}
+
 const App: React.FC = () => {
   const [checkIns, setCheckIns] = useState<CheckIn[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -411,6 +438,13 @@ const App: React.FC = () => {
 
   const handleCheckIn = (status: 'safe' | 'not_safe', secretWord: string, contactId?: number) => {
     setCheckIns((prev) => [...prev, { timestamp: Date.now(), status, secretWord, contactId }]);
+    // Send email if contact is selected and method is Email
+    if (contactId !== undefined) {
+      const contact = contacts.find(c => c.id === contactId);
+      if (contact && contact.method === 'Email' && contact.value) {
+        sendCheckinEmail(contact.value, status, secretWord);
+      }
+    }
   };
 
   const handleAddContact = (c: Omit<Contact, 'id'>) => {
