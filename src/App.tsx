@@ -262,12 +262,12 @@ const SettingsPage: React.FC<{
   };
 
   return (
-    <div className="p-8 max-w-md mx-auto">
+    <div className="max-w-md mx-auto px-4 py-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 120px)' }}>
       <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-white via-black via-green-600 to-red-600 bg-clip-text text-transparent">
         {t.settings}
       </h2>
       
-      <div className="mb-8">
+      <div className="mb-6">
         <h3 className="font-bold text-xl mb-4 flex items-center text-black dark:text-green-200">
           <span className="mr-2">{t.trustedContacts}</span>
         </h3>
@@ -313,7 +313,7 @@ const SettingsPage: React.FC<{
         </ul>
       </div>
       
-      <div className="space-y-4">
+      <div className="space-y-4 mt-6">
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-lg border border-gray-200 dark:border-gray-700 flex items-center justify-between">
           <span className="font-semibold flex items-center text-black dark:text-green-200">
             <span className="mr-2">{darkMode ? '🌙' : '☀️'}</span>
