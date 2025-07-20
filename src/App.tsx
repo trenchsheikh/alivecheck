@@ -457,12 +457,12 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-y-auto">
+      <main className="flex-1 flex flex-col overflow-y-auto pb-20">
         {renderCurrentPage()}
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="bg-white/80 dark:bg-black/80 backdrop-blur-lg border-t border-gray-200/50 dark:border-gray-700/50 py-3 px-4 shadow-2xl">
+      <nav className="bg-white/80 dark:bg-black/80 backdrop-blur-lg border-t border-gray-200/50 dark:border-gray-700/50 py-3 px-4 shadow-2xl fixed bottom-0 left-0 w-full z-50">
         <div className="flex justify-around items-center max-w-md mx-auto">
           <button 
             onClick={() => setCurrentPage('home')}
